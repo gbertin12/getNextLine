@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:48:58 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/04 20:07:29 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:55:11 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,33 @@ char	*ft_strchr(char *s, int c)
 }
 char	*ft_cutline(char *str)
 {
-	int		size;
+	int		i;
 	char	*new;
 
-	size = 0;
+	i = 0;
 	if (!str)
+	{
+		free(str);
 		return (NULL);
-	while (str[size] != '\n' && str[size])
-		size++;
-	new = (char *)malloc(sizeof(char) * size + 2);
+	}
+	while (str[i] != '\n' && str[i])
+		i++;
+	new = (char *)malloc(sizeof(char) * i + 2);
 	if (!new)
 		return (NULL);
-	size = 0;
-	while(str[size] != '\n' && str[size])
+	i = 0;
+	while(str[i] != '\n' && str[i])
 	{
-		new[size] = str[size];
-		size++;
+		new[i] = str[i];
+		i++;
 	}
-	if (str[size] == '\n')
+	if (str[i] == '\n')
 	{
-		new[size] = '\n';
-		size++;
+		new[i] = '\n';
+		i++;
 	}
-	new[size] = '\0';
+	new[i] = '\0';
+	free (str);
 	return (new);
 }
 
@@ -64,23 +68,24 @@ char	*ft_saveline(char *str)
 	char	*new;
 
 	i = 0;
-	while (str[i] != '\n' && str[i])
-		i++;
 	if (!str[i])
 	{
 		free(str);
 		return (NULL);
 	}
+	while (str[i] != '\n' && str[i])
+		i++;
 	new = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!new)
 		return (NULL);
+	i++;
 	y = 0;
 	while (str[i] != '\0')
-		new[y++] = str[++i];
+		new[y++] = str[i++];
 	new[y] = '\0';
-	free(str);
 	return (new);
 }
+
 char	*ft_read(int fd, char *save)
 {
 	char	*buffer;
@@ -93,7 +98,7 @@ char	*ft_read(int fd, char *save)
 	while (!ft_strchr(save, '\n') && end_buffer != 0)
 	{
 		end_buffer = read(fd, buffer, BUFFER_SIZE);
-		if (end_buffer == -1)
+		if (end_buffer <= 0 )
 		{
 			free(buffer);
 			return (NULL);
@@ -110,32 +115,19 @@ char	*get_next_line(int fd)
 	char    		*line_return;
 	static char		*line_save;
 	
+	line_return = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line_save = ft_read(fd, line_save);
 	if (!line_save)
 		return (NULL);
-	line_return = ft_cutline(line_return);
-	line_save = ft_saveline(line_return);
+	line_return = ft_cutline(line_save);
+	line_save = ft_saveline(line_save);
 	return (line_return);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
-	
-	fd = open("test.txt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("%s", str);
-	close(fd);
-	return (0);
-}
-
-
 // int main()
 // {
-// 	printf("bonsoir");
 //     int fd = open("test.txt", O_RDONLY);
 //     char *str;
 //     while ((str = get_next_line(fd)) != NULL)

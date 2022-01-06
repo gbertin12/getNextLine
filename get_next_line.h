@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:46:37 by gbertin           #+#    #+#             */
-/*   Updated: 2021/12/11 08:51:41 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:47:20 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    *ft_memalloc(size_t size);
 void    ft_bzero(char *s1, size_t n);
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 100
 #endif
 
 #endif

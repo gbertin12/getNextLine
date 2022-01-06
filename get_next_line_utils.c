@@ -37,7 +37,7 @@ char    *ft_strjoin(char *s1, char *s2)
 	j = 0;
 	if (!s1)
 	{
-		s1 = (char*)malloc(1);
+		s1 = (char *)malloc(1);
 		if (!s1)
 			return (NULL);
 		s1[0] = '\0'; 
