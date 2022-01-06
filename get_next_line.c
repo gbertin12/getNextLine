@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:48:58 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/06 15:55:11 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/06 19:36:22 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ char	*ft_cutline(char *str)
 
 	i = 0;
 	if (!str)
-	{
-		free(str);
 		return (NULL);
-	}
 	while (str[i] != '\n' && str[i])
 		i++;
-	new = (char *)malloc(sizeof(char) * i + 2);
+	new = (char *)malloc(sizeof(char) * (i + 2));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -57,7 +54,6 @@ char	*ft_cutline(char *str)
 		i++;
 	}
 	new[i] = '\0';
-	free (str);
 	return (new);
 }
 
@@ -68,13 +64,14 @@ char	*ft_saveline(char *str)
 	char	*new;
 
 	i = 0;
+	while (str[i] != '\n' && str[i])
+		i++;
 	if (!str[i])
 	{
 		free(str);
 		return (NULL);
 	}
-	while (str[i] != '\n' && str[i])
-		i++;
+
 	new = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!new)
 		return (NULL);
@@ -83,6 +80,7 @@ char	*ft_saveline(char *str)
 	while (str[i] != '\0')
 		new[y++] = str[i++];
 	new[y] = '\0';
+	free(str);
 	return (new);
 }
 
@@ -98,7 +96,7 @@ char	*ft_read(int fd, char *save)
 	while (!ft_strchr(save, '\n') && end_buffer != 0)
 	{
 		end_buffer = read(fd, buffer, BUFFER_SIZE);
-		if (end_buffer <= 0 )
+		if (end_buffer == -1)
 		{
 			free(buffer);
 			return (NULL);
