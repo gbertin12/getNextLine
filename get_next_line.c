@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:48:58 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/07 18:37:43 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/07 18:42:02 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char	*ft_reading_file(int fd, char *save)
 		buffer[end_buffer] = '\0';
 		save = ft_strjoin(save, buffer);
 	}
+	
 	free(buffer);
 	return (save);
 }
