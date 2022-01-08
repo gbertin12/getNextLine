@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:48:58 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/08 01:44:48 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/08 01:50:17 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ char	*ft_cutline(char *str)
 		new[i] = str[i];
 		i++;
 	}
-	if (str[i] == '\n')
-	{
-		new[i] = str[i];
-		i++;
-	}
+	new[i] = str[i];
+	i++;
 	new[i] = '\0';
 	// printf("start : %x\n", str);
 	// printf("new : %x\n", new);
@@ -138,23 +135,23 @@ char	*get_next_line(int fd)
 	return (line_return);
 }
 
-int main()
-{
-    int fd = open("test.txt", O_RDONLY);
-    char *str;
-	str = get_next_line(fd);
-	printf("\nprint : %s\n_______________\n", str);
-	str = get_next_line(fd);
-	printf("\nprint : %s\n_______________\n", str);
-	str = get_next_line(fd);
-	printf("\nprint :%s\n_______________\n", str);
-	str = get_next_line(fd);
-	printf("\nprint :%s\n_______________\n", str);
-	str = get_next_line(fd);
-	printf("\nprint :%s\n_______________\n", str);
-	str = get_next_line(fd);
-	printf("\nprint :%s\n_______________\n", str);
-	str = get_next_line(fd);
-	close(fd);
-    return (0);
-}
+// int main()
+// {
+//     int fd = open("test.txt", O_RDONLY);
+//     char *str;
+// 	str = get_next_line(fd);
+// 	printf("\nprint : %s\n_______________\n", str);
+// 	str = get_next_line(fd);
+// 	printf("\nprint : %s\n_______________\n", str);
+// 	str = get_next_line(fd);
+// 	printf("\nprint :%s\n_______________\n", str);
+// 	str = get_next_line(fd);
+// 	printf("\nprint :%s\n_______________\n", str);
+// 	str = get_next_line(fd);
+// 	printf("\nprint :%s\n_______________\n", str);
+// 	str = get_next_line(fd);
+// 	printf("\nprint :%s\n_______________\n", str);
+// 	str = get_next_line(fd);
+// 	close(fd);
+//     return (0);
+// }
