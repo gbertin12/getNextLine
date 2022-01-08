@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:49:46 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/08 15:45:54 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/08 18:06:56 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1)
 	{
 		s1 = (char *)malloc(sizeof(char) * 1);
+		if (!s1)
+			return (NULL);
 		s1[0] = '\0';
 	}
-	if (!s1)
-		return (NULL);
 	return (ft_strcat(s1, s2));
 }
