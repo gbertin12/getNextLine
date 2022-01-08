@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:49:46 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/07 17:04:54 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/07 21:28:15 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,15 @@ char    *ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-
-	//printf("s1 : %s\ns2 : %s\n", s1, s2);
 	if (!s1)
 	{
-		s1 = (char *)malloc(1);
-		if (!s1)
-			return (NULL);
+		s1 = (char *)malloc(sizeof(char) * 1);
 		s1[0] = '\0'; 
 	}
+	if (!s1)
+			return (NULL);
 	size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	new = (char *)malloc(size);
+	new = (char *)malloc(sizeof(char) * size);
 	if (!new)
 		return (0);
 	while (s1[i] != '\0')

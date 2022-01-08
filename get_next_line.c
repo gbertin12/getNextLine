@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:48:58 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/07 18:42:02 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/08 01:44:48 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*ft_strchr(char *s, int c)
 	i = 0;
 	if (!s)
 		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (char) c)
@@ -50,7 +48,7 @@ char	*ft_cutline(char *str)
 	}
 	if (str[i] == '\n')
 	{
-		new[i] = '\n';
+		new[i] = str[i];
 		i++;
 	}
 	new[i] = '\0';
@@ -75,7 +73,6 @@ char	*ft_saveline(char *str)
 	}
 	if (ft_strlen(str + i) == 0)
 		return (NULL);
-	printf("%d, %d \n", ft_strlen(str + i), i);
 	new = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!new)
 		return (NULL);
@@ -84,7 +81,6 @@ char	*ft_saveline(char *str)
 	while (str[i] != '\0')
 		new[y++] = str[i++];
 	new[y] = '\0';
-
 	free(str);
 	return (new);
 }
@@ -101,14 +97,8 @@ char	*ft_reading_file(int fd, char *save)
 	while (!ft_strchr(save, '\n') && end_buffer != 0)
 	{
 		end_buffer = read(fd, buffer, BUFFER_SIZE);
-
 	//printf("start :%s\n", buffer);
-		if (end_buffer == 0 && !save)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		if (end_buffer == -1)
+		if (end_buffer == -1 || (end_buffer == 0 && !save))
 		{
 			free(buffer);
 			return (NULL);
@@ -116,7 +106,6 @@ char	*ft_reading_file(int fd, char *save)
 		buffer[end_buffer] = '\0';
 		save = ft_strjoin(save, buffer);
 	}
-	
 	free(buffer);
 	return (save);
 }
@@ -129,31 +118,43 @@ char	*get_next_line(int fd)
 	line_return = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	
+	//printf("\n________________\nreturn before read:%s", line_save);
 	line_save = ft_reading_file(fd, line_save);
 	if (!line_save)
 		return (NULL);
+	//printf("\nreturn :%s", line_save);
+	if (line_save[0] == '\n' && line_save[1] == '\0')
+	{
+		free(line_save);
+		free(line_return);
+		return (NULL);
+	}	
 	line_return = ft_cutline(line_save);
 	//printf("before :%s\n", line_save);
+	//if (ft_strchr(line_save, '\n'))
+		//printf("il y a un backslash\n");
 	line_save = ft_saveline(line_save);
 	//printf("after :%s\n", line_save);
 	return (line_return);
 }
 
-// int main()
-// {
-//     int fd = open("test.txt", O_RDONLY);
-//     char *str;
-//     while ((str = get_next_line(fd)) != NULL)
-//     {
-//         printf("%s", str);
-//     }
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	str = get_next_line(fd);
-// 	printf("%s\n", str);
-// 	str = get_next_line(fd);
-// 	printf("%s\n", str);
-// 	close(fd);
-//     return (0);
-// }
+int main()
+{
+    int fd = open("test.txt", O_RDONLY);
+    char *str;
+	str = get_next_line(fd);
+	printf("\nprint : %s\n_______________\n", str);
+	str = get_next_line(fd);
+	printf("\nprint : %s\n_______________\n", str);
+	str = get_next_line(fd);
+	printf("\nprint :%s\n_______________\n", str);
+	str = get_next_line(fd);
+	printf("\nprint :%s\n_______________\n", str);
+	str = get_next_line(fd);
+	printf("\nprint :%s\n_______________\n", str);
+	str = get_next_line(fd);
+	printf("\nprint :%s\n_______________\n", str);
+	str = get_next_line(fd);
+	close(fd);
+    return (0);
+}
