@@ -6,15 +6,15 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:49:46 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/07 21:28:15 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/08 15:45:54 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"get_next_line.h"
 
-int     ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
-	size_t  i;
+	size_t	i;
 
 	i = 0;
 	if (!s)
@@ -24,22 +24,15 @@ int     ft_strlen(char *s)
 	return (i);
 }
 
-char    *ft_strjoin(char *s1, char *s2)
+char	*ft_strcat(char *s1, char *s2)
 {
-	unsigned int  size;
-	char    *new;
-	size_t  i;
-	size_t  j;
+	size_t	size;
+	size_t	i;
+	size_t	j;
+	char	*new;
 
 	i = 0;
 	j = 0;
-	if (!s1)
-	{
-		s1 = (char *)malloc(sizeof(char) * 1);
-		s1[0] = '\0'; 
-	}
-	if (!s1)
-			return (NULL);
 	size = ft_strlen(s1) + ft_strlen(s2) + 1;
 	new = (char *)malloc(sizeof(char) * size);
 	if (!new)
@@ -54,4 +47,16 @@ char    *ft_strjoin(char *s1, char *s2)
 	new[i] = '\0';
 	free(s1);
 	return (new);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
+	if (!s1)
+		return (NULL);
+	return (ft_strcat(s1, s2));
 }
