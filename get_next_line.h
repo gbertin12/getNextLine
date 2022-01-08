@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:46:37 by gbertin           #+#    #+#             */
-/*   Updated: 2022/01/08 16:00:20 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/01/08 16:05:27 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int		ft_strlen(char *s);
 char	*ft_strcat(char *s1, char *s2);
 char	*ft_strjoin(char *s1, char *s2);
-int		*ft_strchr(char *s, int c);
+int		ft_strchr(char *s, int c);
 
 char	*ft_saveline(char *str);
 char	*ft_cutline(char *str);
